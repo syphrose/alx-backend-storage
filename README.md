@@ -1,14 +1,20 @@
 		ADVANCED SQL
 
-
+-----------------------------------------------------
 MySQL cheatsheet
 Browsing
+
+----------------------------------------------------------------
 SHOW DATABASES;
 SHOW TABLES;
 SHOW FIELDS FROM table / DESCRIBE table;
 SHOW CREATE TABLE table;
 SHOW PROCESSLIST;
 KILL process_number;
+
+
+
+----------------------------------------------------
 Select
 SELECT * FROM table;
 SELECT * FROM table1, table2;
@@ -25,6 +31,10 @@ Select - Join
 SELECT ... FROM t1 JOIN t2 ON t1.id1 = t2.id2 WHERE condition;
 SELECT ... FROM t1 LEFT JOIN t2 ON t1.id1 = t2.id2 WHERE condition;
 SELECT ... FROM t1 JOIN (t2 JOIN t3 ON ...) ON ...
+
+
+
+----------------------------------------------------------
 Conditions
 field1 = value1
 field1 <> value1
@@ -38,6 +48,10 @@ condition1 OR condition2
 Create / Open / Delete Database
 CREATE DATABASE DatabaseName;
 CREATE DATABASE DatabaseName CHARACTER SET utf8;
+
+
+
+--------------------------------------------------
 USE DatabaseName;
 DROP DATABASE DatabaseName;
 ALTER DATABASE DatabaseName CHARACTER SET utf8;
@@ -48,18 +62,32 @@ mysql -u Username -p dbNameYouWant < databasename_backup.sql;
 Repair Tables After Unclean Shutdown
 mysqlcheck --all-databases;
 mysqlcheck --all-databases --fast;
+
+
+
+-----------------------------------------
 Insert
 INSERT INTO table1 (field1, field2) VALUES (value1, value2);
+
+
+---------------------------------------------------------
 Delete
 DELETE FROM table1 / TRUNCATE table1
 DELETE FROM table1 WHERE condition
 DELETE FROM table1, table2 WHERE table1.id1 =
   table2.id2 AND condition
+
+
+
+-----------------------------------------------------------------
 Update
 UPDATE table1 SET field1=new_value1 WHERE condition;
 UPDATE table1, table2 SET field1=new_value1, field2=new_value2, ... WHERE
   table1.id1 = table2.id2 AND condition;
 Create / Delete / Modify Table
+
+
+---------------------------------------------------------
 Create
 CREATE TABLE table (field1 type1, field2 type2);
 CREATE TABLE table (field1 type1, field2 type2, INDEX (field));
@@ -72,10 +100,16 @@ CREATE TABLE table1 (fk_field1 type1, fk_field2 type2, ...,
  FOREIGN KEY (fk_field1, fk_field2) REFERENCES table2 (t2_fieldA, t2_fieldB))
 CREATE TABLE table IF NOT EXISTS;
 CREATE TEMPORARY TABLE table;
+
+
+-------------------------------------------------------
 Drop
 DROP TABLE table;
 DROP TABLE IF EXISTS table;
 DROP TABLE table1, table2, ...
+
+
+-------------------------------------------------------
 Alter
 ALTER TABLE table MODIFY field1 type1
 ALTER TABLE table MODIFY field1 type1 NOT NULL ...
@@ -94,6 +128,9 @@ ALTER TABLE table MODIFY field1 type1 AFTER another_field
 ALTER TABLE table CHANGE old_name_field1 new_name_field1 type1 FIRST
 ALTER TABLE table CHANGE old_name_field1 new_name_field1 type1 AFTER
   another_field
+
+
+-------------------------------------------------------------
 Keys
 CREATE TABLE table (..., PRIMARY KEY (field1, field2))
 CREATE TABLE table (..., FOREIGN KEY (field1, field2) REFERENCES table2
@@ -111,6 +148,8 @@ SET PASSWORD = OLD_PASSWORD('new_pass');
 DROP USER 'user'@'host';
 Host ‘%’ indicates any host.
 
+
+-------------------------------------------------
 Main Data Types
 TINYINT (1o: -128 to +127)
 SMALLINT (2o: +-65 000)
@@ -120,6 +159,8 @@ BIGINT (8o: +-9.10^18)
 Precise interval: -(2^(8*N-1)) -> (2^8*N)-1
 ⚠ INT(2) = “2 digits displayed” – NOT “number with 2 digits max”
 
+
+--------------------------------------------------------------
 FLOAT(M,D)
 DOUBLE(M,D)
 FLOAT(D=0->53)
@@ -135,12 +176,16 @@ TEXT (multi-lines; max size=65535)
 BLOB (binary; max size=65535)
 Variants for TEXT&BLOB: TINY (max=255), MEDIUM (max=~16000), and LONG (max=4Go). Ex: VARCHAR(32), TINYTEXT, LONGBLOB, MEDIUMTEXT
 
+
+----------------------------------------------------------------
 ENUM ('value1', 'value2', ...) -- (default NULL, or '' if NOT NULL)
 Reset Root Password
 $ /etc/init.d/mysql stop
 $ mysqld_safe --skip-grant-tables
 $ mysql # on another terminal
 mysql> UPDATE mysql.user SET password=PASSWORD('new_pass') WHERE user='root';
+
+------------------------------------------------------------
 ## Switch back to the mysqld_safe terminal and kill the process using Control + \
 $ /etc/init.d/mysql start
 Your commands may vary depending on your OS.
